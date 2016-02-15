@@ -4,7 +4,7 @@
 #     $ bin/compile <build-dir> <cache-dir> <env-path>
 
 # Fail fast and fail hard.
-set -eo pipefail
+#set -eo pipefail
 
 indent() {
   sed -u 's/^/       /'

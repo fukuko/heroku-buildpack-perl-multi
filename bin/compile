@@ -40,8 +40,43 @@ echo "-----> Installing dependencies"
 echo "cpanm options: $PERL_CPANM_OPT" | indent
 cpanm --installdeps . 2>&1 | indent
 
-echo "-----> Installing Starman"
-cpanm Starman 2>&1 | indent
+#echo "-----> Installing Starman"
+#cpanm Starman 2>&1 | indent
+
+if ! [ -e $BUILD_DIR/local/bin/jwhois ]; then
+	echo "-----> Install jwhois"
+	cd /tmp
+
+	curl -L --silent -O http://ftp.ring.gr.jp/pub/GNU/jwhois/jwhois-4.0.tar.gz
+
+	tar zxvf jwhois-4.0.tar.gz
+
+	cd jwhois-4.0/
+	
+	curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois-4.0-fix-ipv6socket.patch
+	
+	patch -p1 < jwhois-4.0-fix-ipv6socket.patch
+	
+	cd example/
+
+	mv jwhois.conf jwhois.conf.org
+	
+	curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois.conf
+	
+	cd ../
+	
+	./configure --prefix=$BUILD_DIR/local
+	
+	make
+	
+	make install
+	
+	cd $BUILD_DIR/local/bin
+	
+	ln -s jwhois whois
+	
+	cd $BUILD_DIR
+fi
 
 if [ -d $BUILD_DIR/local ]; then
   rm -rf $CACHE_DIR/local

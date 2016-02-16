@@ -44,38 +44,48 @@ cpanm --installdeps . 2>&1 | indent
 #cpanm Starman 2>&1 | indent
 
 if ! [ -e $BUILD_DIR/local/bin/jwhois ]; then
-	echo "-----> Install jwhois"
-	cd /tmp
+  echo "-----> Install jwhois"
+  cd /tmp
 
-	curl -L --silent -O http://ftp.ring.gr.jp/pub/GNU/jwhois/jwhois-4.0.tar.gz
+  curl -L --silent -O http://ftp.ring.gr.jp/pub/GNU/jwhois/jwhois-4.0.tar.gz
 
-	tar zxvf jwhois-4.0.tar.gz
+  tar zxvf jwhois-4.0.tar.gz
 
-	cd jwhois-4.0/
-	
-	curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois-4.0-fix-ipv6socket.patch
-	
-	patch -p1 < jwhois-4.0-fix-ipv6socket.patch
-	
-	cd example/
+  cd jwhois-4.0/
+  
+  echo "-----> ipv6socket.patch jwhois"
+  
+  curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois-4.0-fix-ipv6socket.patch
+  
+  patch -p1 < jwhois-4.0-fix-ipv6socket.patch
+  
+  cd example/
 
-	mv jwhois.conf jwhois.conf.org
-	
-	curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois.conf
-	
-	cd ../
-	
-	./configure --prefix=$BUILD_DIR/local
-	
-	make
-	
-	make install
-	
-	cd $BUILD_DIR/local/bin
-	
-	ln -s jwhois whois
-	
-	cd $BUILD_DIR
+  echo "-----> Get jwhois.conf"
+  
+  mv jwhois.conf jwhois.conf.org
+  
+  curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois.conf
+  
+  cd ../
+  
+  echo "-----> Configure jwhois"
+  
+  ./configure --prefix=$BUILD_DIR/local
+  
+  echo "-----> Make jwhois"
+  
+  make
+  
+  echo "-----> Make install jwhois"
+  
+  make install
+  
+  cd $BUILD_DIR/local/bin
+  
+  ln -s jwhois whois
+  
+  cd $BUILD_DIR
 fi
 
 if [ -d $BUILD_DIR/local ]; then

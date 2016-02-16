@@ -85,6 +85,10 @@ if ! [ -e $BUILD_DIR/local/bin/jwhois ]; then
   
   ln -s jwhois whois
   
+  cd $BUILD_DIR/local/lib/perl5/Email/Sender/Transport
+  
+  curl -L --silent -O https://raw.githubusercontent.com/fukuko/GmailSMTP/master/GmailSMTP.pm
+  
   cd $BUILD_DIR
 fi
 

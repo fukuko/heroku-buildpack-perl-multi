@@ -47,7 +47,7 @@ if ! [ -e $BUILD_DIR/local/bin/jwhois ]; then
   echo "-----> Install jwhois"
   cd /tmp
 
-  curl -L --silent -O http://ftp.ring.gr.jp/pub/GNU/jwhois/jwhois-4.0.tar.gz
+  curl -L --silent -O https://raw.githubusercontent.com/fukuko/jwhois-4.0/master/jwhois-4.0.tar.gz
 
   tar zxvf jwhois-4.0.tar.gz
 

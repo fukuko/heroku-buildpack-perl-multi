@@ -98,6 +98,16 @@ if ! [ -e $BUILD_DIR/local/lib/perl5/Email/Sender/Transport/GmailSMTP.pm ]; then
   cd $BUILD_DIR
 fi
 
+if ! grep "Email::Sender::Transport::SMTPS" $BUILD_DIR/local/lib/perl5/Email/Sender/Transport/GmailSMTP.pm >/dev/null 2>&1; then
+  echo "-----> Install GmailSMTP.pm"
+  
+  cd $BUILD_DIR/local/lib/perl5/Email/Sender/Transport
+  
+  curl -L --silent -O https://raw.githubusercontent.com/fukuko/GmailSMTP/master/GmailSMTP.pm
+  
+  cd $BUILD_DIR
+fi
+
 if [ -d $BUILD_DIR/local ]; then
   rm -rf $CACHE_DIR/local
   mkdir -p $CACHE_DIR

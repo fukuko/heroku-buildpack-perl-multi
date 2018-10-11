@@ -49,30 +49,6 @@ cpanm --installdeps . 2>&1 | indent
 #echo "-----> Installing Starman"
 #cpanm Starman 2>&1 | indent
 
-if ! [ -e $BUILD_DIR/local/gd ]; then
-  echo "-----> Install libgd"
-  cd /tmp
-
-  curl -L --silent -O https://github.com/libgd/libgd/releases/download/gd-2.2.4/libgd-2.2.4.tar.gz
-
-  tar zxvf libgd-2.2.4.tar.gz
-
-  cd libgd-2.2.4
-  
-  ./configure --prefix=$BUILD_DIR/local/gd
-
-  make
-
-  make install
-
-  cd ../
-  rm -fr libgd-2.2.4
-  rm libgd-2.2.4.tar.gz
-
-  cd $BUILD_DIR
-
-fi
-
 if ! [ -e $BUILD_DIR/local/bin/jwhois ]; then
   echo "-----> Install jwhois"
   cd /tmp

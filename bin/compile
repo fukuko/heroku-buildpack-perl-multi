@@ -59,7 +59,7 @@ if ! [ -e $BUILD_DIR/local/gd ]; then
 
   cd libgd-2.2.4
   
-  ./configure --prefix=/app/local/gd
+  ./configure --prefix=$BUILD_DIR/local/gd
 
   make
 

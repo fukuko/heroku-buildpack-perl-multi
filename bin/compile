@@ -65,6 +65,7 @@ if ! [ -e $BUILD_DIR/local/gd ]; then
 
   make install
 
+  cd ../
   rm -fr libgd-2.2.4
   rm libgd-2.2.4.tar.gz
 
